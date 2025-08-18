@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 async function permittedCharacters() {
     let permitted = [];  
     
@@ -12,6 +14,9 @@ async function permittedCharacters() {
 
     if (process.env.SPECIAL_CHARACTERS === "true") 
         permitted.push(... "!@#$%^&*()-_")
+
+    if (permitted.length === 0)
+        throw new Error(chalk.red("Nenhum conjunto de caracteres habilitado no .env. Ative pelo menos um."));
     
     return permitted;
 }
