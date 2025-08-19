@@ -1,15 +1,18 @@
 import qr from "qrcode-terminal"
 import chalk from "chalk";
+import { printQRCodeFeedback } from "./utils/feedbak-qrcode.js"
 
 async function handle(err, result) {
     if (err) {
-        console.log("error on application");
+        console.log(chalk.red.bold("Erro ao gerar QR Code"));
         return;
     };
 
     const isSmall = result.type == 2;
+
+    printQRCodeFeedback(result.link, isSmall); 
+
     qr.generate(result.link, { small: isSmall }, (qrcode) => {
-        console.log(chalk.green("QR Code gerado com sucesso:\n"));
         console.log(qrcode);
     })
 }
