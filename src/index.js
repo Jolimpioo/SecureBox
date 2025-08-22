@@ -1,30 +1,31 @@
+#!/usr/bin/env node
+import  { Command } from "commander";
 import chalk from "chalk";
-import { ask } from "./utils/prompt-ask.js";
-import promptSchemaMain from "./prompts-schema/schema-main.js";
-import createQRCode from "./services/qr-code/create-qrcode.js";
-import createPassword from "./services/password/create-password.js";
 
-async function main() {
-    let running = true;
+const program = new Command();
 
-    while (running) {
-        const { select } = await ask(promptSchemaMain);
+program
+    .name("securebox")
+    .description("Kit de utilidade: gerador de senhas e QR Codes")
+    .version(process.env.npm_package_version || "1.0.0")
+    .showHelpAfterError()
+    .showSuggestionAfterError();
 
-        if (select == 1) {
-            await createQRCode();
-            continue;
-        }
+program.addHelpText("afterAll", chalk.cyan.bold("\nSecureBox CLI\n"));
+program.addHelpText(
+  "after",
+  `
+Exemplos:
+  $ securebox password --length 12 --symbols
+  $ securebox qrcode --link https://exemplo.com --type 2
 
-        if (select == 2) {
-            await createPassword();
-            continue;
-        }
+Dica: ao usar "npm start", passe argumentos após "--":
+  $ npm start -- password --length 12 --symbols
+`
+);
 
-        if (select == 3) {
-            console.log(chalk.blue("\nPrograma encerrado.\n"))
-            running = false;
-        }
-    }
+program.parse(process.argv);
+
+if (process.argv.length <= 2) {
+    program.outputHelp();
 }
-
-main();
