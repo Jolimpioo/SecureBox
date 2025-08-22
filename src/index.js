@@ -27,9 +27,25 @@ Dica: ao usar "npm start", passe argumentos após "--":
 );
 
 program
-    .command("qrcode")
-    .description("Gerar um QR Code")
-    .option("-l, --link <")
+  .command("qrcode")
+  .description("Gerar um QR Code")
+  .option("-l, --link <string>", "Link ou texto para gerar QR Code")
+  .option("-t, --terminal", "Gerar QR Code compacto para terminal")
+  .action(async (options) => {
+    await createQRCode(options);
+  });
+
+  program
+  .command("password")
+  .description("Gerar uma senha")
+  .option("-L, --length <number>", "Tamanho da senha", "8")
+  .option("-n, --numbers", "Incluir números")
+  .option("-s, --symbols", "Incluir símbolos especiais")
+  .option("-u, --uppercase", "Incluir letras maiúsculas")
+  .option("-l, --lowercase", "Incluir letras minúsculas")
+  .action(async (options) => {
+    await createPassword(options);
+  });
 
 program.parse(process.argv);
 
