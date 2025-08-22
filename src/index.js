@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import  { Command } from "commander";
 import chalk from "chalk";
+import createQRCode from "./services/qr-code/create-qrcode.js";
+import createPassword from "./services/password/create-password.js"
 
 const program = new Command();
 
@@ -23,6 +25,11 @@ Dica: ao usar "npm start", passe argumentos após "--":
   $ npm start -- password --length 12 --symbols
 `
 );
+
+program
+    .command("qrcode")
+    .description("Gerar um QR Code")
+    .option("-l, --link <")
 
 program.parse(process.argv);
 
