@@ -1,6 +1,6 @@
 import qr from "qrcode-terminal"
 import chalk from "chalk";
-import { printQRCodeFeedback } from "./utils/feedbak-qrcode.js"
+import { printQRCodeFeedback } from "./utils/feedback-qrcode.js"
 
 async function handle(err, result) {
     if (err) {

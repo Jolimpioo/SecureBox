@@ -1,10 +1,10 @@
 import getPermittedCharacters from "./utils/permitted-character.js";
 
 async function handle(config) {
-    const permitted = getPermittedCharacters(config);
-
     let password = "";
-    for (let i = 0; i < passwordLength; i++) {
+    const permitted = await getPermittedCharacters(config);
+    
+    for (let i = 0; i < config.length; i++) {
         const index = Math.floor(Math.random() * permitted.length)
         password += permitted[index];
     }

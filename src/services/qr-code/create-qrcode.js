@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import handle from "./handle-qrcode.js";
 
 async function createQRCode(options) {
