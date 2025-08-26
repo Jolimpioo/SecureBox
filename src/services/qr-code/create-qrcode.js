@@ -12,7 +12,7 @@ async function createQRCode(options) {
 
     const result = {
         link: options.link,
-        type: options ? 2 : 1,
+        type: options.terminal ? 2 : 1,
     }
 
     await handle(null, result);

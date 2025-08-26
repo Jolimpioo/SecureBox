@@ -9,7 +9,7 @@ async function createPassword(options) {
         length: Number(process.env.PASSWORD_LENGTH) || 8,
         uppercase: process.env.UPPERCASE_LETTERS === "true",
         lowercase: process.env.LOWERCASE_LETTERS === "true",
-        number: process.env.NUMBERS === "true",
+        numbers: process.env.NUMBERS === "true",
         symbols: process.env.SPECIAL_CHARACTERS === "true",
     };
 
@@ -21,7 +21,7 @@ async function createPassword(options) {
         length: options.length ? Number(options.length) : envConfig.length,
         uppercase: options.uppercase ?? envConfig.uppercase,
         lowercase: options.lowercase ?? envConfig.lowercase,
-        number: options.number ?? envConfig.number,
+        numbers: options.numbers ?? envConfig.numbers,
         symbols: options.symbols ?? envConfig.symbols,
     };
 
@@ -30,8 +30,8 @@ async function createPassword(options) {
         process.exit(1);
     }
 
-    if (!config.uppercase && !config.lowercase && !config.number && !config.symbols) {
-        console.log(chalk.red("Erro: selecione pelo menos um tipo de caractere (uppercase, lowercase, number, symbols)."));
+    if (!config.uppercase && !config.lowercase && !config.numbers && !config.symbols) {
+        console.log(chalk.red("Erro: selecione pelo menos um tipo de caractere (uppercase, lowercase, numbers, symbols)."));
         process.exit(1);
     }
 

@@ -11,7 +11,7 @@ async function getPermittedCharacters(config) {
         characters.push(... "abcdefghijklmnopqrstuvwxyz")
     }
 
-    if (config.number) {
+    if (config.numbers) {
         characters.push(... "0123456789")
     }
 
