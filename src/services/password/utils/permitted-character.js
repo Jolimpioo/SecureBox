@@ -1,24 +1,20 @@
 import chalk from "chalk";
 
-async function permittedCharacters() {
-    let permitted = [];  
-    
-    if (process.env.UPPERCASE_LETTERS === "true") 
-        permitted.push(... "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+async function getPermittedCharacters() {
+    let characters = [];
 
-    if (process.env.LOWERCASE_LETTERS === "true") 
-        permitted.push(... "abcdefghijklmnopqrstuvwxyz")
+    if (config.uppercase) characters.push(... "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-    if (process.env.NUMBERS === "true") 
-        permitted.push(... "0123456789")
+    if (config.lowercase) characters.push(... "abcdefghijklmnopqrstuvwxyz")
 
-    if (process.env.SPECIAL_CHARACTERS === "true") 
-        permitted.push(... "!@#$%^&*()-_")
+    if (config.number) characters.push(... "0123456789")
 
-    if (permitted.length === 0)
+    if (config.symbols) characters.push(... "!@#$%^&*()-_")
+
+    if (characters.length === 0)
         throw new Error(chalk.red("Nenhum conjunto de caracteres habilitado no .env. Ative pelo menos um."));
-    
-    return permitted;
+
+    return characters;
 }
 
-export default permittedCharacters;
+export default getPermittedCharacters;

@@ -1,15 +1,12 @@
-import permittedCharacters from "./utils/permitted-character.js";
+import getPermittedCharacters from "./utils/permitted-character.js";
 
-async function handle() {
-    let characters = [];
+async function handle(config) {
+    const permitted = getPermittedCharacters(config);
+
     let password = "";
-
-    const passwordLength = process.env.PASSWORD_LENGTH;
-    characters = await permittedCharacters();
-
-    for(let i = 0; i < passwordLength; i++) {
-        const index = Math.floor(Math.random() * characters.length)
-        password += characters[index];
+    for (let i = 0; i < passwordLength; i++) {
+        const index = Math.floor(Math.random() * permitted.length)
+        password += permitted[index];
     }
 
     return password;
