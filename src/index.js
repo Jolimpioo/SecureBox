@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-import  { Command } from "commander";
+import { Command } from "commander";
 import chalk from "chalk";
 import createQRCode from "./services/qr-code/create-qrcode.js";
-import createPassword from "./services/password/create-password.js"
+import createPassword from "./services/password/create-password.js";
 
 const program = new Command();
 
 program
-    .name("securebox")
-    .description("Kit de utilidade: gerador de senhas e QR Codes")
-    .version(process.env.npm_package_version || "1.0.0")
-    .showHelpAfterError()
-    .showSuggestionAfterError();
+  .name("securebox")
+  .description("Kit de utilidade: gerador de senhas e QR Codes")
+  .version(process.env.npm_package_version || "1.0.0")
+  .showHelpAfterError()
+  .showSuggestionAfterError();
 
 program.addHelpText("afterAll", chalk.cyan.bold("\nSecureBox CLI\n"));
 program.addHelpText(
@@ -32,10 +32,15 @@ program
   .option("-l, --link <string>", "Link ou texto para gerar QR Code")
   .option("-t, --terminal", "Gerar QR Code compacto para terminal")
   .action(async (options) => {
-    await createQRCode(options);
+    try {
+      await createQRCode(options);
+    } catch (err) {
+      console.error(chalk.red.bold("Erro:"), err.message || err);
+      process.exit(1);
+    }
   });
 
-  program
+program
   .command("password")
   .description("Gerar uma senha")
   .option("-L, --length <number>", "Tamanho da senha", "8")
@@ -44,11 +49,16 @@ program
   .option("-u, --uppercase", "Incluir letras maiúsculas")
   .option("-l, --lowercase", "Incluir letras minúsculas")
   .action(async (options) => {
-    await createPassword(options);
+    try {
+      await createPassword(options);
+    } catch (err) {
+      console.error(chalk.red.bold("Erro:"), err.message || err);
+      process.exit(1);
+    }
   });
 
 program.parse(process.argv);
 
 if (process.argv.length <= 2) {
-    program.outputHelp();
+  program.outputHelp();
 }

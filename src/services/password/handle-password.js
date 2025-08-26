@@ -1,16 +1,22 @@
 import getPermittedCharacters from "./utils/permitted-character.js";
+import { secureRandomIndex } from "../../utils/random.js";
 
-async function handle(config) {
-    let password = "";
+export default async function generatePassword(config) {
+    if (!config || typeof config.length !== "number") {
+        throw new Error("Config inválida: informe --length <number>.");
+    }
+
     const permitted = await getPermittedCharacters(config);
-    
+
+    if (!Array.isArray(permitted) || permitted.length === 0) {
+        throw new Error("Nenhum conjuntto de caracteres disponível para gerar a senha.");
+    }
+
+    let password = "";
     for (let i = 0; i < config.length; i++) {
-        const index = Math.floor(Math.random() * permitted.length)
+        const index = await secureRandomIndex(permitted.length);
         password += permitted[index];
     }
 
     return password;
-
 }
-
-export default handle;

@@ -7,7 +7,7 @@ function analyzePassword(password) {
     if (/[A-Z]/.test(password)) types.push("Letras maiúsculas");
     if (/[0-9]/.test(password)) types.push("Números");
     if (/[^a-zA-Z0-9]/.test(password)) types.push("Especiais");
-    
+
     return types;
 }
 
@@ -16,6 +16,6 @@ export function printPasswordFeedback(password) {
     console.log(chalk.yellow("Senha: ") + chalk.white.bold(password));
     console.log(chalk.yellow("Comprimento: ") + password.length);
 
-    const types = analyzePassword(password)
+    const types = analyzePassword(password);
     console.log(chalk.yellow("Inclui: ") + types.join(", "));
 }

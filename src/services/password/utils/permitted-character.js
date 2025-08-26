@@ -1,26 +1,20 @@
-import chalk from "chalk";
-
 async function getPermittedCharacters(config) {
     let characters = [];
 
     if (config.uppercase) {
-        characters.push(... "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        characters.push(... "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     }
 
     if (config.lowercase) {
-        characters.push(... "abcdefghijklmnopqrstuvwxyz")
+        characters.push(... "abcdefghijklmnopqrstuvwxyz");
     }
 
     if (config.numbers) {
-        characters.push(... "0123456789")
+        characters.push(... "0123456789");
     }
 
     if (config.symbols) {
-        characters.push(... "!@#$%^&*()-_")
-    }
-
-    if (characters.length === 0) {
-        throw new Error(chalk.red("Nenhum conjunto de caracteres habilitado no .env. Ative pelo menos um."));
+        characters.push(... "!@#$%^&*-_");
     }
 
     return characters;

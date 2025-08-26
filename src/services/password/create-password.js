@@ -1,28 +1,45 @@
 import chalk from "chalk";
 import handle from "./handle-password.js";
-import { printPasswordFeedback } from "./utils/feedback-password.js"
+import { printPasswordFeedback } from "./utils/feedback-password.js";
+import defaults from "../../configs/defaults.js";
 
 async function createPassword(options) {
     console.log(chalk.cyan("\n[GERADOR DE SENHAS]\n"));
 
-    const envConfig = {
-        length: Number(process.env.PASSWORD_LENGTH) || 8,
-        uppercase: process.env.UPPERCASE_LETTERS === "true",
-        lowercase: process.env.LOWERCASE_LETTERS === "true",
-        numbers: process.env.NUMBERS === "true",
-        symbols: process.env.SPECIAL_CHARACTERS === "true",
-    };
+    const envConfig = defaults.password;
 
-    /*
-    "config" -> sobrescreve env se existir
-    ?? (Nullish Coalescing): Usa o valor da direita apenas se o da esquerda for null ou undefined
-    */
+    const customCharsetProvided =
+        typeof options.uppercase !== 'undefined' ||
+        typeof options.lowercase !== 'undefined' ||
+        typeof options.numbers !== 'undefined' ||
+        typeof options.symbols !== 'undefined';
+
     const config = {
         length: options.length ? Number(options.length) : envConfig.length,
-        uppercase: options.uppercase ?? envConfig.uppercase,
-        lowercase: options.lowercase ?? envConfig.lowercase,
-        numbers: options.numbers ?? envConfig.numbers,
-        symbols: options.symbols ?? envConfig.symbols,
+
+        uppercase: customCharsetProvided
+            ? typeof options.uppercase !== "undefined"
+                ? Boolean(options.uppercase)
+                : envConfig.uppercase
+            : envConfig.uppercase,
+
+        lowercase: customCharsetProvided
+            ? typeof options.lowercase !== "undefined"
+                ? Boolean(options.lowercase)
+                : envConfig.lowercase
+            : envConfig.lowercase,
+
+        numbers: customCharsetProvided
+            ? typeof options.numbers !== "undefined"
+                ? Boolean(options.numbers)
+                : envConfig.numbers
+            : envConfig.numbers,
+
+        symbols: customCharsetProvided
+            ? typeof options.symbols !== "undefined"
+                ? Boolean(options.symbols)
+                : envConfig.symbols
+            : envConfig.symbols,
     };
 
     if (isNaN(config.length) || config.length < 6) {
@@ -35,7 +52,7 @@ async function createPassword(options) {
         process.exit(1);
     }
 
-    const password = await handle(config)
+    const password = await handle(config);
     printPasswordFeedback(password);
 }
 
