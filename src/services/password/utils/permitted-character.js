@@ -14,7 +14,7 @@ async function getPermittedCharacters(config) {
     }
 
     if (config.symbols) {
-        characters.push(... "!@#$%^&*-_");
+        characters.push(... "!@#$%^&*");
     }
 
     return characters;
