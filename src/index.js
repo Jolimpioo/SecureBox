@@ -19,7 +19,7 @@ program.addHelpText(
   `
 Exemplos:
   $ securebox password --length 12 --symbols
-  $ securebox qrcode --link https://exemplo.com --type 2
+  $ securebox qrcode --link https://exemplo.com --terminal
 
 Dica: ao usar "npm start", passe argumentos após "--":
   $ npm start -- password --length 12 --symbols
