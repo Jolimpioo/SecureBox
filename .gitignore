@@ -1,6 +1,1 @@
 node_modules/
-tests/
-.env
-jest.config.js
-babel.config.cjs
-eslint.config.js
