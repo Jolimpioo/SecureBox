@@ -43,12 +43,18 @@ async function createPassword(options) {
     };
 
     if (isNaN(config.length) || config.length < 6) {
-        console.log(chalk.red("Erro: o tamanho da senha deve ser um número >= 6."));
+        console.error(
+            chalk.red.bold("[ERRO] ") + `Valor inválido para comprimento da senha: "${options.length || envConfig.length}".\n` +
+            "O comprimento deve ser um número >= 6."
+        );
         process.exit(1);
     }
 
     if (!config.uppercase && !config.lowercase && !config.numbers && !config.symbols) {
-        console.log(chalk.red("Erro: selecione pelo menos um tipo de caractere (uppercase, lowercase, numbers, symbols)."));
+        console.error(
+            chalk.red.bold("[ERRO] ") + "Nenhum conjunto de caracteres selecionado.\n" +
+            "Ative pelo menos uma opção: uppercase, lowercase, numbers, symbols."
+        );
         process.exit(1);
     }
 
