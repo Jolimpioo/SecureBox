@@ -2,7 +2,10 @@ import handle from "./handle-qrcode.js";
 
 async function createQRCode(options) {
   if (!options.link) {
-    throw new Error("É necessário informar um link para gerar o QR Code. \nEx: --link https://meusite.com");
+    throw new Error(
+      "É necessário informar um link para gerar o QR Code. \n" +
+      "Exemplo: securebox qrcode --link https://meusite.com"
+    );
   }
 
   const result = {
